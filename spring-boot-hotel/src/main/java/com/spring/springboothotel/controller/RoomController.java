@@ -11,7 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173", maxAge = 3600)
 @RestController
 @RequestMapping("/room")
 @RequiredArgsConstructor
@@ -33,4 +35,8 @@ public class RoomController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/room-types")
+    public List<String> getRoomTypes() {
+        return roomService.getAllRoomTypes();
+    }
 }
