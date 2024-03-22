@@ -1,12 +1,10 @@
 package com.spring.springboothotel.response;
 
-import jakarta.persistence.Lob;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import java.math.BigDecimal;
-import java.sql.Blob;
 import java.util.List;
 
 @Data
@@ -17,7 +15,7 @@ public class RoomResponse {
     private BigDecimal roomPrice;
     private boolean isBooked;
     private String photo;
-    private List<BookedRoomResponse> bookings;
+    private List<BookingResponse> bookings;
 
     public RoomResponse(Long id, String roomType, BigDecimal roomPrice) {
         this.id = id;
@@ -26,7 +24,7 @@ public class RoomResponse {
     }
 
     public RoomResponse(Long id, String roomType, BigDecimal roomPrice,
-                        boolean isBooked, byte[] photoBytes, List<BookedRoomResponse> bookings) {
+                        boolean isBooked, byte[] photoBytes, List<BookingResponse> bookings) {
         this.id = id;
         this.roomType = roomType;
         this.roomPrice = roomPrice;
