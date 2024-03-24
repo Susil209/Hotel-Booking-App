@@ -6,7 +6,7 @@ import { getRoomById, updateRoom } from "../utils/ApiFunction";
 
 const EditRoom = () => {
   const [room, setRoom] = useState({
-    photo: "",
+    photo: null,
     roomType: "",
     roomPrice: "",
   });

@@ -5,7 +5,7 @@ import { deleteRoom, getAllRooms } from "../utils/ApiFunction";
 import { Col, Row } from "react-bootstrap";
 import RoomFilter from "../common/RoomFilter";
 import RoomPaginator from "../common/RoomPaginator";
-import { FaEdit, FaEye, FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaEye, FaPlus, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const ExistingRoom = () => {
@@ -14,7 +14,7 @@ const ExistingRoom = () => {
   const [rooms, setRooms] = useState([initialState]);
   const [currentPage, setCurrentPage] = useState(1);
   const [roomsPerPage] = useState(8);
-  const [isLoading, setIsLonding] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [filteredRooms, setFilteredRooms] = useState([initialState]);
   const [selectedRoomType] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -26,14 +26,14 @@ const ExistingRoom = () => {
   }, []);
 
   const fetchRooms = async () => {
-    setIsLonding(true);
+    setIsLoading(true);
     try {
       const result = await getAllRooms();
       setRooms(result);
-      setIsLonding(false);
+      setIsLoading(false);
     } catch (e) {
       setErrorMessage(e.message);
-      setIsLonding(false);
+      setIsLoading(false);
     }
   };
 
@@ -52,7 +52,7 @@ const ExistingRoom = () => {
     setCurrentPage(1);
   }, [rooms, selectedRoomType]);
 
-  const calculateTotalPages = (filteredRooms, roomsPerPage, rooms) => {
+  const calculatetotalPages = (filteredRooms, roomsPerPage, rooms) => {
     const totalRooms =
       filteredRooms.length > 0 ? filteredRooms.length : rooms.length;
     return Math.ceil(totalRooms / roomsPerPage);
@@ -111,6 +111,14 @@ const ExistingRoom = () => {
             <Col md={6} className="mb-2 md-mb-0">
               <RoomFilter data={rooms} setFilteredData={setFilteredRooms} />
             </Col>
+
+            {/* Add new room */}
+            <Col md={6} className="d-flex justify-content-end">
+              <Link to={"/add-room"}>
+                <FaPlus />
+                Add Room
+              </Link>
+            </Col>
           </Row>
 
           <table className="table table-bordered table-hover">
@@ -155,7 +163,7 @@ const ExistingRoom = () => {
 
           <RoomPaginator
             currentPage={currentPage}
-            totalPage={calculateTotalPages(filteredRooms, roomsPerPage, rooms)}
+            totalPages={calculatetotalPages(filteredRooms, roomsPerPage, rooms)}
             onPageChange={handlePaginationClick}
           />
         </section>
