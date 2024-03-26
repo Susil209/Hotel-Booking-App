@@ -20,7 +20,7 @@ public class BookingResponse {
     private int numOfChildren;
     private int totalNumOfGuests;
     private String bookingConfirmationCode;
-    private Room room;
+    private RoomResponse room;
 
     public BookingResponse(Long bookingId, LocalDate checkInDate,
                            LocalDate checkOutDate, String bookingConfirmationCode) {
