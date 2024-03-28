@@ -10,6 +10,8 @@ import RoomListing from "./components/room/RoomListing";
 import Admin from "./components/admin/Admin";
 import Checkout from "./components/bookings/Checkout";
 import BookingSuccess from "./components/bookings/BookingSuccess";
+import Bookings from "./components/bookings/Bookings";
+import FindBookings from "./components/bookings/FindBookings";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/success-error" element={<BookingSuccess />}/>
           <Route path="/browse-all-rooms" element={<RoomListing />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/existing-bookings" element={<Bookings />} />
+          <Route path="/find-booking" element={<FindBookings />} />
         </Routes>
       </Router>
       <Footer />

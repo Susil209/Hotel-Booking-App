@@ -86,7 +86,20 @@ const ExistingRoom = () => {
   };
 
   return (
-    <>
+    <div className="container">
+      <nav aria-label="breadcrumb" className="m-4">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <a href="/">Home</a>
+          </li>
+          <li className="breadcrumb-item">
+            <a href="/admin">Admin</a>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            Existing Rooms
+          </li>
+        </ol>
+      </nav>
       {/* Success and error message */}
       <div className="container col-md-8 col-lg-6">
         {successMessage && (
@@ -168,7 +181,7 @@ const ExistingRoom = () => {
           />
         </section>
       )}
-    </>
+    </div>
   );
 };
 

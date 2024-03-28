@@ -104,13 +104,13 @@ const BookingForm = () => {
       navigate("/success-error", { state: { message: confirmationCode } });
     } catch (error) {
       setErrorMessage(error.message);
-    //   console.log(error.message);
+      //   console.log(error.message);
       navigate("/success-error", { state: { error: error.message } });
     }
   };
 
   return (
-    <div className="container mb-5">
+    <div className="container">
       <div className="row">
         <div className="col-md-6">
           <div className="card card-body mt-5 shadow p-4 mb-5 bg-body-tertiary rounded">
@@ -259,7 +259,7 @@ const BookingForm = () => {
           </div>
         </div>
 
-        <div className="col-md-5 ">
+        <div className="col-md-6 ">
           {isSubmitted && (
             <BookingSummary
               booking={booking}

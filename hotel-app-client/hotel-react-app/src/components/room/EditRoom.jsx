@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getRoomById, updateRoom } from "../utils/ApiFunction";
+import ToastMessage from "../common/ToastMessage";
 
 const EditRoom = () => {
   const [room, setRoom] = useState({
@@ -63,18 +64,40 @@ const EditRoom = () => {
 
   return (
     <div className="container mt-5 mb-5">
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <a href="/">Home</a>
+          </li>
+          <li className="breadcrumb-item">
+            <a href="/admin">Admin</a>
+          </li>
+          <li className="breadcrumb-item">
+            <a href="/existing-rooms">Existing Rooms</a>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            Edit Room
+          </li>
+        </ol>
+      </nav>
       <h3 className="text-center mb-5 mt-5">Edit Room</h3>
       <div className="row justify-content-center">
         <div className="col-md-8 col-lg-6">
           {successMessage && (
-            <div className="alert alert-success" role="alert">
-              {successMessage}
-            </div>
+            <>
+              <div className="alert alert-success" role="alert">
+                {successMessage}
+              </div>
+              <ToastMessage message={successMessage} bgColor="success" />
+            </>
           )}
           {errorMessage && (
-            <div className="alert alert-danger" role="alert">
-              {errorMessage}
-            </div>
+            <>
+              <div className="alert alert-danger" role="alert">
+                {errorMessage}
+              </div>
+              <ToastMessage message={errorMessage} bgColor="warning" />
+            </>
           )}
 
           <form onSubmit={handleSubmit}>

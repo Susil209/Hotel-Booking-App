@@ -4,6 +4,7 @@ import { useState } from "react";
 import { addRoom } from "../utils/ApiFunction";
 import RoomTypeSelector from "../common/RoomTypeSelector";
 import { Link } from "react-router-dom";
+import ToastMessage from "../common/ToastMessage";
 
 const AddRoom = () => {
   const initialRoom = {
@@ -65,19 +66,43 @@ const AddRoom = () => {
   };
 
   return (
-    <>
+    <div>
       <section className="container mt-5 mb-5">
+        <nav aria-label="breadcrumb">
+          <ol className="breadcrumb">
+            <li className="breadcrumb-item">
+              <a href="/">Home</a>
+            </li>
+            <li className="breadcrumb-item">
+              <a href="/admin">Admin</a>
+            </li>
+            <li className="breadcrumb-item">
+              <a href="/existing-rooms">Existing Rooms</a>
+            </li>
+            <li className="breadcrumb-item active" aria-current="page">
+              Add Room
+            </li>
+          </ol>
+        </nav>
         <div className="row justify-content-center">
           <div className="col-md-8 col-lg-6">
             <h2 className="mt-5 mb-2">Add a New Room</h2>
             {successMessage && (
-              <div className="alert alert-success fade show">
-                {successMessage}
-              </div>
+              <>
+                <div className="alert alert-success fade show">
+                  {successMessage}
+                </div>
+                <ToastMessage message={successMessage} bgColor="success" />
+              </>
             )}
 
             {errorMessage && (
-              <div className="alert alert-danger fade show">{errorMessage}</div>
+              <>
+                <div className="alert alert-danger fade show">
+                  {errorMessage}
+                </div>
+                <ToastMessage message={errorMessage} bgColor="warning" />
+              </>
             )}
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
@@ -148,7 +173,7 @@ const AddRoom = () => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 
