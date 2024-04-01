@@ -49,6 +49,7 @@ public class BookingController {
 
             return ResponseEntity.ok(bookingResponse);
         }catch (ResourceNotFoundException ex){
+            // return 404 Not Found.
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                                 .body(ex.getMessage());
         }
@@ -67,6 +68,7 @@ public class BookingController {
             return ResponseEntity.ok(
                     "Room booked successfully, Your booking confirmation code is :"+confirmationCode);
         }catch (InvalidBookingRequestException e){
+            // return 400 Bad Request
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
