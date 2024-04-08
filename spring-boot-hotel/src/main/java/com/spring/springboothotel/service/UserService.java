@@ -7,8 +7,12 @@ import com.spring.springboothotel.model.Role;
 import com.spring.springboothotel.model.User;
 import com.spring.springboothotel.repository.RoleRepository;
 import com.spring.springboothotel.repository.UserRepository;
+import com.spring.springboothotel.request.LoginRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,7 @@ public class UserService implements IUserService{
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public User register(User user) {
@@ -37,6 +42,14 @@ public class UserService implements IUserService{
         user.setRoles(Collections.singletonList(userRole));
         return userRepository.save(user);
     }
+
+    @Override
+    public Authentication authenticate(LoginRequest request) {
+        return authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+        );
+    }
+
 
     @Override
     public List<User> getUsers() {

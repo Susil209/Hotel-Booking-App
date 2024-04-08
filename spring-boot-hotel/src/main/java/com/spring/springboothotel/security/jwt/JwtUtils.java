@@ -20,92 +20,47 @@ import java.util.function.Function;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${security.jwt.secret-key}")
+    @Value("${auth.token.jwtSecret}")
     private String jwtSecret;
-    @Value("${security.jwt.expiration-time}")
-    private Long jwtExpiration;
+
+    @Value("${auth.token.expirationInMils}")
+    private int jwtExpirationMs;
 
     public String generateJwtTokenForUser(Authentication authentication){
-        // get custom class userPrinciple
-        HotelUserDetails userPrinciple = (HotelUserDetails) authentication.getPrincipal();
-
-        // get list of roles
-        List<String> roles = userPrinciple.getAuthorities()
+        HotelUserDetails userPrincipal = (HotelUserDetails) authentication.getPrincipal();
+        List<String> roles = userPrincipal.getAuthorities()
                 .stream()
-                .map(GrantedAuthority::getAuthority)
-                .toList();
-
+                .map(GrantedAuthority::getAuthority).toList();
         return Jwts.builder()
-                .setSubject(userPrinciple.getUsername())
+                .setSubject(userPrincipal.getUsername())
                 .claim("roles", roles)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+ jwtExpiration))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
-                .compact();
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime()+jwtExpirationMs))
+                .signWith(key(), SignatureAlgorithm.HS256).compact();
     }
 
-    private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
-        return Keys.hmacShaKeyFor(keyBytes);
+    private Key key() {
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
-
     public String getUserNameFromToken(String token){
         return Jwts.parserBuilder()
-                .setSigningKey(getSignInKey())
+                .setSigningKey(key())
                 .build()
-                .parseClaimsJwt(token)
-                .getBody()
-                .getSubject();
+                .parseClaimsJws(token).getBody().getSubject();
     }
-
-    public boolean validateToken(String token) {
+    public boolean validateToken(String token){
         try{
-            Jwts.parserBuilder()
-                    .setSigningKey(getSignInKey())
-                    .build()
-                    .parse(token);
+            Jwts.parserBuilder().setSigningKey(key()).build().parse(token);
             return true;
-        }catch (MalformedJwtException e){
-            logger.error("Invalid Jwt token : {}", e.getMessage());
+        }catch(MalformedJwtException e){
+            logger.error("Invalid jwt token : {} ", e.getMessage());
         }catch (ExpiredJwtException e){
             logger.error("Expired token : {} ", e.getMessage());
         }catch (UnsupportedJwtException e){
             logger.error("This token is not supported : {} ", e.getMessage());
         }catch (IllegalArgumentException e){
-            logger.error("No claims found : {} ", e.getMessage());
+            logger.error("No  claims found : {} ", e.getMessage());
         }
-
         return false;
-    }
-
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
-
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
-    }
-
-    public boolean isTokenValid(String token, HotelUserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
-    }
-
-    private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
-    }
-
-    private Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
-
-    private Claims extractAllClaims(String token) {
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
     }
 }
