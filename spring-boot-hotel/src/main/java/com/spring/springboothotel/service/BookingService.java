@@ -63,6 +63,11 @@ public class BookingService implements IBookingService{
         bookingRepository.deleteById(bookingId);
     }
 
+    @Override
+    public List<BookedRoom> getBookingsByEmail(String email) {
+        return bookingRepository.findByGuestEmail(email);
+    }
+
     private boolean isRoomAvailable(BookedRoom bookingRequest, List<BookedRoom> existingBookings) {
         return existingBookings.stream()
                 .noneMatch(existingBooking ->
