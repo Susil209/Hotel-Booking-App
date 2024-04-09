@@ -23,7 +23,7 @@ body {
   left: 0;
   right: 0;
   content: '';
-  background-color:rgb(169, 77, 123) ;
+  background-color:#23c5db ;
   width: 0;
   margin: 0 auto;
   height: 4px;
@@ -54,7 +54,7 @@ body {
 
   /* Hotel custom color */
  .btn-hotel{
-  background-color: rgb(169, 77, 123);
+  background-color: #23c5db;
   color: #fff;
   }
   .btn-hotel:hover{
@@ -67,7 +67,7 @@ body {
   }
 
   .hotel-color{
-    color: rgb(169, 77, 123);
+    color: #23c5db;
   }
   .room-price{
     color:darkgoldenrod;

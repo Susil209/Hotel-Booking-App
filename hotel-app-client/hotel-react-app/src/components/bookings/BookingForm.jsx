@@ -8,26 +8,22 @@ import { Form, FormControl, InputGroup } from "react-bootstrap";
 import BookingSummary from "./BookingSummary";
 
 const BookingForm = () => {
-  const initialState = {
-    guestFullName: "",
-    guestEmail: "",
-    checkInDate: "",
-    checkOutDate: "",
-    numOfAdults: "",
-    numOfChildren: "",
-  };
 
   const [validated, setValidated] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [roomPrice, setRoomPrice] = useState(0);
-  const [booking, setBooking] = useState(initialState);
 
-  //   const [roomInfo, setRoomInfo] = useState({
-  //     roomType: "",
-  //     roomPrice: "",
-  //     photo: "",
-  //   });
+  const currentUser = localStorage.getItem("userId");
+
+  const [booking, setBooking] = useState({
+    guestFullName: "",
+    guestEmail: currentUser,
+    checkInDate: "",
+    checkOutDate: "",
+    numOfAdults: "",
+    numOfChildren: "",
+  });
 
   const { roomId } = useParams();
   const navigate = useNavigate();

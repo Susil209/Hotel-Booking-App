@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import DateSlider from "../common/DateSlider";
 import parseISO from "date-fns/parseISO";
 
-
 const BookingsTable = ({ bookingInfo, handleBookingCancellation }) => {
   const [filteredBookings, setFilteredBookings] = useState(bookingInfo);
 
