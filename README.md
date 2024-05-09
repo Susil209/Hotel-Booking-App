@@ -14,6 +14,38 @@ Clone the project using,
 
 git clone https://github.com/Susil209/Hotel-Booking-App.git
 ```
+    
+## Features
+
+- Basic Hotel Features- Home page, List of rooms, Room Details, Booking room, Find rooms
+- Reserve hotel rooms
+- Admin Panel - Create, edit and delete rooms, Manage rooms
+- Sorting, Filtering, and Pagination to find rooms
+- MySQL database to create, update and delete data
+- Authentication with Spring security strategies
+- Pop ups on room booking, updating confirmation
+- User Profile and Admin details
+
+
+## Run Locally
+
+Go to the project directory
+
+```bash
+  cd hotel-booking-app/hotel-app-client/hotel-react-app
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
 
 
 ## Screenshots
@@ -54,4 +86,17 @@ User Profile
 
 <img width="944" alt="user-profile" src="https://github.com/Susil209/Hotel-Booking-App/assets/86419870/0909bd44-695e-4b75-bcc9-a491a95bb049">
 
+
+
+## Tech Stack
+
+**Client:** React, Vite, Axios, Bootstrap
+
+**Server:** Spring boot, Spring Security, jwt
+
+
+## 🔗 Links
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://susil-portfolio.netlify.app/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/susil-kumar-nayak-ab36001b5//)
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/SusilKu19439401)
 
